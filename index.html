@@ -76,16 +76,22 @@ h2:first-child{margin-top:0}
 <script>
 const RATE=90000;
 const BURGERS=[
-{id:"1",e:"🔴",n:"Crimson Beast",t:"RED — Sweet & Spicy",d:"Beef patty, smoked cheddar, crispy onions, jalapeños, smoky chili sauce, red bun.",p:10},
-{id:"2",e:"🟡",n:"Golden Melt",t:"YELLOW — Extra Cheesy",d:"Double beef, American cheese, crispy cheese, caramelized onions, mustard mayo, yellow bun.",p:10},
-{id:"3",e:"🟣",n:"Purple Haze",t:"PURPLE — Sweet & Smoky",d:"Beef patty, brie cheese, caramelized onions, purple cabbage slaw, blueberry BBQ sauce, purple bun.",p:10},
-{id:"4",e:"🔵",n:"Blue Thunder",t:"BLUE — Bold & Creamy",d:"Beef patty, blue cheese, crispy onions, lettuce, garlic sauce, blue bun.",p:10},
-{id:"5",e:"⚫",n:"Blackout",t:"BLACK — Dark BBQ",d:"Double beef, smoked cheddar, crispy onions, bacon, black garlic BBQ sauce, black bun.",p:10}];
+{id:"1",e:"🔴",n:"Crimson Beast",t:"RED — Sweet & Spicy",d:"Beef patty, smoked cheddar, crispy onions, jalapeños, smoky chili sauce, red bun.",p:7.22},
+{id:"2",e:"🟡",n:"Golden Melt",t:"YELLOW — Extra Cheesy",d:"Double beef, American cheese, crispy cheese, caramelized onions, mustard mayo, yellow bun.",p:7.22},
+{id:"3",e:"🟣",n:"Purple Haze",t:"PURPLE — Sweet & Smoky",d:"Beef patty, brie cheese, caramelized onions, purple cabbage slaw, blueberry BBQ sauce, purple bun.",p:8.9},
+{id:"4",e:"🔵",n:"Blue Thunder",t:"BLUE — Bold & Creamy",d:"Beef patty, blue cheese, crispy onions, lettuce, garlic sauce, blue bun.",p:8.3},
+{id:"5",e:"⚫",n:"Blackout",t:"BLACK — Dark BBQ",d:"Double beef, smoked cheddar, crispy onions, bacon, black garlic BBQ sauce, black bun.",p:8.9}];
 const SIDES=[
 {id:"S1",n:"CHEDDAR",p:.5},{id:"S2",n:"BBQ / BLUEBERRY BBQ",p:.5},{id:"S3",n:"RANCH",p:.5},
-{id:"S4",n:"FRIES",p:1},{id:"S5",n:"CHIPS",p:1},
+{id:"S4",n:"FRIES",p:1},
 {id:"CB",n:"COMBO",p:2,d:"Sauce + fries/chips + drink"}];
-const DRINKS=["7UP","7UP DIET","PEPSI","PEPSI DIET","PEPSI ZERO","MIRANDA","ICETEA","WATER","SPARKLING WATER"].map((n,i)=>({id:"D"+(i+1),n,p:.9}));
+const DRINKS = ["7UP", "7UP DIET", "PEPSI", "PEPSI DIET", "PEPSI ZERO", "MIRANDA", "ICETEA", "WATER", "SPARKLING WATER"].map((n, i) => {
+  let price = 1;
+  if (n === "WATER") price = 0.35;
+  if (n === "SPARKLING WATER") price = 0.5;
+  
+  return { id: "D" + (i + 1), n, p: price };
+});
 const ALL=[...BURGERS.map(b=>({...b,type:"burger"})),...SIDES.map(s=>({...s,type:"side"})),...DRINKS.map(d=>({...d,type:"drink"}))];
 let basket={},lbp=false,tender="usd";
 const $=id=>document.getElementById(id);
